@@ -1,0 +1,42 @@
+﻿@using HackathonProje.Models.Entity
+@model List<tblIsletme>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+
+
+<div class="container">
+  <div class="row">
+         <div class="col-12  pt-5 ">
+            <h4>İşletme Bilgileri</h4>
+        </div>
+  </div>
+    <div class="row">
+     
+        <div class="col-12 pb-5">
+
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2 pt-3 pt-3" id="inputGroup-sizing-default">İşletme Adı</span>
+                <input type="text" class="form-control col-9 pt-3 pt-3 input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@ViewBag.isletmeAdi">
+                <input type="text" class="form-control col-1 pt-3 pt-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@ViewBag.isletmeId" disabled>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2 pt-3 pt-3" id="inputGroup-sizing-default">İşletme Açıklama</span>
+                <input type="text" class="form-control col-* pt-3 pt-3 input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@ViewBag.isletmeAciklama">
+
+            </div>
+            <div class="input-group mb-3 ">
+                <span class="input-group-text col-2" id="inputGroup-sizing-default">İşletme Adres</span>
+                <input type="text" class="form-control col-* pt-3 pt-3 input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@ViewBag.isletmeAdres">
+
+            </div>
+
+
+
+        </div>
+    </div>
+    
+</div>
+

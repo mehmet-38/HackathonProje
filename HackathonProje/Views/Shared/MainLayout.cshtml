@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "MainLayout";
+
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+    <title>@ViewBag.Title</title>
+
+</head>
+<body>
+
+    <!--Navbar Başlangıç(Gezinti çubuğu)-->
+    <nav class="navbar navbar-dark light-blue lighten-4 bg-dark">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand text-light display-3" href="~/Home/Index">
+            Fırsatlar Dünyası
+        </a>
+ 
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler toggler-example " type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="~/Home/Index">Anasayfa </a>
+                </li>
+                @if (!(Session["kullaniciId"] is null))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="~/KodViewer/Index">Kuponlarim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="~/KodViewer/KuponAl">Kampanyalar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="~/Isletmem">İşletmem</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="~/Home/Cikis">Çıkış</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="~/KullaniciLogin/Index">Giriş</a>
+                    </li>
+                }
+
+            </ul>
+            <!-- Links -->
+
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <!--Navbar Bitiş(Gezinti çubuğu)-->
+
+    @RenderBody()
+
+    <!--ikici kısın bitiş-->
+    <!--Orta kısım Bitiş-->
+    <!--Footer başlangıç(Altbilgi)-->
+    <footer class="bg-dark text-center text-white" >
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                    <i class="bi bi-facebook text-light"></i>
+                </a>
+
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                    <i class="bi bi-twitter text-lightr"></i>
+                </a>
+
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#"" role="button">
+                    <i class="bi bi-google text-light"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                    <i class="bi bi-instagram text-light"></i>
+                </a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                    <i class="bi bi-linkedin text-light"></i>
+                </a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                    <i class="bi bi-github text-light"></i>
+                </a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-white" href="index.html">Kyk Brothers</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <!--Footer bitiş(altbilgi)-->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+

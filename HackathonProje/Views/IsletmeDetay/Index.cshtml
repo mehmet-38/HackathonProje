@@ -1,0 +1,63 @@
+﻿@using HackathonProje.Models.Entity
+@model List<tblPuanDetay> 
+
+@{
+    ViewBag.Title = "İşletme Detay";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+  
+}
+
+<div class="container mb-5 mt-5">
+    <div class="row">
+        <div class="col-12">
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>@(ViewBag.isletmeAdi+"#"+ViewBag.isletmeId) <span style="float:right;" class="badge badge-pill badge-warning">Puan: @ViewBag.isletmePuan</span></h3>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <h5>Açıklama:</h5>
+                        
+                    </blockquote>
+                    <blockquote class="blockquote mb-0">
+                        <p>@ViewBag.isletmeAciklama</p>
+                        <footer class="blockquote-footer"> <cite title="Source Title">@ViewBag.isletmeAdres</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    @if ((Model.Count>0 ))
+    {
+        <hr />
+        <div class="row text-center">
+            <h4 style="margin:auto">Yorumlar</h4>
+        </div>
+    }
+
+
+
+    <div class="row">
+        @foreach (var yorum in Model)
+        {
+            <div class="col-12 mb-3 mt-3">
+                <div class="card">
+                    <div class="card-header">
+                        @(yorum.tblKullanici.ad +" "+ yorum.tblKullanici.soyad + "#" + yorum.kullaniciId)
+                        <span style="float:right;" class="badge badge-pill badge-warning">Puan: @yorum.puan </span>
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>@yorum.yorum</p>
+                            <footer class="blockquote-footer">Ziyaret Edildi: <cite title="Source Title">@yorum.tarih.Value.ToString("dd/MM/yyyy")</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

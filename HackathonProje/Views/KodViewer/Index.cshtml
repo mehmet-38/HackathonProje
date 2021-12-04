@@ -1,0 +1,63 @@
+﻿@using HackathonProje.Models.Entity
+@model List<tblKuponlarim>
+
+@{
+    ViewBag.Title = "Kuponlarım";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div style="margin-top:20px">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Sahip Olduğum Kuponlar</h2>
+                <hr />
+            </div>
+        </div>
+        @foreach (var kupon in Model)
+        {
+
+            <div class="row">
+                <div class="col-12">
+                    <a href="https://localhost:44359/Kullanici/Index?kuponKod=@kupon.kuponKod" target="myiframe">
+                        <button style="margin-bottom:10px; padding:20px 0 20px 0" class="btn btn-info btn-block " data-toggle="modal" data-target="#qrModal">
+                            @kupon.tblIsletme.isletmeAdi için geçerli @kupon.indirim ₺ indirim kuponu.
+                        </button>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="qrModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="qrModalLabel">Kodunuzu İşletmeciye Gösteriniz</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height:410px">
+                <iframe name="myiframe" style="height:100%;width:100%"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

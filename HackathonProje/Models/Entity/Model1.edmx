@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="hackhathonP01Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblIsletme">
+          <Key>
+            <PropertyRef Name="isletmeId" />
+          </Key>
+          <Property Name="isletmeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isletmeAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="puan" Type="smallint" Nullable="false" />
+          <Property Name="adres" Type="nvarchar(max)" />
+          <Property Name="aciklama" Type="nvarchar(max)" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblIsletmeKullanici">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullaniciId" Type="bigint" Nullable="false" />
+          <Property Name="isletmeId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblKullanici">
+          <Key>
+            <PropertyRef Name="kullaniciId" />
+          </Key>
+          <Property Name="kullaniciId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="soyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="parola" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblKuponlar">
+          <Key>
+            <PropertyRef Name="kuponKod" />
+          </Key>
+          <Property Name="kuponKod" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isletmeId" Type="bigint" Nullable="false" />
+          <Property Name="indirim" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="kuponAdet" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblKuponlarim">
+          <Key>
+            <PropertyRef Name="kuponKod" />
+            <PropertyRef Name="kullaniciId" />
+          </Key>
+          <Property Name="kuponKod" Type="bigint" Nullable="false" />
+          <Property Name="kullaniciId" Type="bigint" Nullable="false" />
+          <Property Name="isletmeId" Type="bigint" Nullable="false" />
+          <Property Name="indirim" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPuanDetay">
+          <Key>
+            <PropertyRef Name="puanId" />
+          </Key>
+          <Property Name="puanId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isletmeId" Type="bigint" Nullable="false" />
+          <Property Name="kullaniciId" Type="bigint" Nullable="false" />
+          <Property Name="puan" Type="smallint" Nullable="false" />
+          <Property Name="yorum" Type="nvarchar(max)" />
+          <Property Name="tarih" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_tblIsletmeKullanici_tblIsletme">
+          <End Role="tblIsletme" Type="Self.tblIsletme" Multiplicity="1" />
+          <End Role="tblIsletmeKullanici" Type="Self.tblIsletmeKullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblIsletme">
+              <PropertyRef Name="isletmeId" />
+            </Principal>
+            <Dependent Role="tblIsletmeKullanici">
+              <PropertyRef Name="isletmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIsletmeKullanici_tblKullanici">
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="1" />
+          <End Role="tblIsletmeKullanici" Type="Self.tblIsletmeKullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKullanici">
+              <PropertyRef Name="kullaniciId" />
+            </Principal>
+            <Dependent Role="tblIsletmeKullanici">
+              <PropertyRef Name="kullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKuponlar_tblIsletme">
+          <End Role="tblIsletme" Type="Self.tblIsletme" Multiplicity="1" />
+          <End Role="tblKuponlar" Type="Self.tblKuponlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblIsletme">
+              <PropertyRef Name="isletmeId" />
+            </Principal>
+            <Dependent Role="tblKuponlar">
+              <PropertyRef Name="isletmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKuponlarim_tblIsletme">
+          <End Role="tblIsletme" Type="Self.tblIsletme" Multiplicity="1" />
+          <End Role="tblKuponlarim" Type="Self.tblKuponlarim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblIsletme">
+              <PropertyRef Name="isletmeId" />
+            </Principal>
+            <Dependent Role="tblKuponlarim">
+              <PropertyRef Name="isletmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKuponlarim_tblKullanici">
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="1" />
+          <End Role="tblKuponlarim" Type="Self.tblKuponlarim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKullanici">
+              <PropertyRef Name="kullaniciId" />
+            </Principal>
+            <Dependent Role="tblKuponlarim">
+              <PropertyRef Name="kullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPuanDetay_tblIsletme">
+          <End Role="tblIsletme" Type="Self.tblIsletme" Multiplicity="1" />
+          <End Role="tblPuanDetay" Type="Self.tblPuanDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblIsletme">
+              <PropertyRef Name="isletmeId" />
+            </Principal>
+            <Dependent Role="tblPuanDetay">
+              <PropertyRef Name="isletmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPuanDetay_tblKullanici">
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="1" />
+          <End Role="tblPuanDetay" Type="Self.tblPuanDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKullanici">
+              <PropertyRef Name="kullaniciId" />
+            </Principal>
+            <Dependent Role="tblPuanDetay">
+              <PropertyRef Name="kullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="hackhathonP01ModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblIsletme" EntityType="Self.tblIsletme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblIsletmeKullanici" EntityType="Self.tblIsletmeKullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKullanici" EntityType="Self.tblKullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKuponlar" EntityType="Self.tblKuponlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKuponlarim" EntityType="Self.tblKuponlarim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPuanDetay" EntityType="Self.tblPuanDetay" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblIsletmeKullanici_tblIsletme" Association="Self.FK_tblIsletmeKullanici_tblIsletme">
+            <End Role="tblIsletme" EntitySet="tblIsletme" />
+            <End Role="tblIsletmeKullanici" EntitySet="tblIsletmeKullanici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIsletmeKullanici_tblKullanici" Association="Self.FK_tblIsletmeKullanici_tblKullanici">
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+            <End Role="tblIsletmeKullanici" EntitySet="tblIsletmeKullanici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKuponlar_tblIsletme" Association="Self.FK_tblKuponlar_tblIsletme">
+            <End Role="tblIsletme" EntitySet="tblIsletme" />
+            <End Role="tblKuponlar" EntitySet="tblKuponlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKuponlarim_tblIsletme" Association="Self.FK_tblKuponlarim_tblIsletme">
+            <End Role="tblIsletme" EntitySet="tblIsletme" />
+            <End Role="tblKuponlarim" EntitySet="tblKuponlarim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKuponlarim_tblKullanici" Association="Self.FK_tblKuponlarim_tblKullanici">
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+            <End Role="tblKuponlarim" EntitySet="tblKuponlarim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPuanDetay_tblIsletme" Association="Self.FK_tblPuanDetay_tblIsletme">
+            <End Role="tblIsletme" EntitySet="tblIsletme" />
+            <End Role="tblPuanDetay" EntitySet="tblPuanDetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPuanDetay_tblKullanici" Association="Self.FK_tblPuanDetay_tblKullanici">
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+            <End Role="tblPuanDetay" EntitySet="tblPuanDetay" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hackhathonP01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblIsletme">
+          <Key>
+            <PropertyRef Name="isletmeId" />
+          </Key>
+          <Property Name="isletmeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isletmeAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="puan" Type="Int16" Nullable="false" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="telefon" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblIsletmeKullanici" Relationship="Self.FK_tblIsletmeKullanici_tblIsletme" FromRole="tblIsletme" ToRole="tblIsletmeKullanici" />
+          <NavigationProperty Name="tblKuponlar" Relationship="Self.FK_tblKuponlar_tblIsletme" FromRole="tblIsletme" ToRole="tblKuponlar" />
+          <NavigationProperty Name="tblKuponlarim" Relationship="Self.FK_tblKuponlarim_tblIsletme" FromRole="tblIsletme" ToRole="tblKuponlarim" />
+          <NavigationProperty Name="tblPuanDetay" Relationship="Self.FK_tblPuanDetay_tblIsletme" FromRole="tblIsletme" ToRole="tblPuanDetay" />
+        </EntityType>
+        <EntityType Name="tblIsletmeKullanici">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullaniciId" Type="Int64" Nullable="false" />
+          <Property Name="isletmeId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="tblIsletme" Relationship="Self.FK_tblIsletmeKullanici_tblIsletme" FromRole="tblIsletmeKullanici" ToRole="tblIsletme" />
+          <NavigationProperty Name="tblKullanici" Relationship="Self.FK_tblIsletmeKullanici_tblKullanici" FromRole="tblIsletmeKullanici" ToRole="tblKullanici" />
+        </EntityType>
+        <EntityType Name="tblKullanici">
+          <Key>
+            <PropertyRef Name="kullaniciId" />
+          </Key>
+          <Property Name="kullaniciId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="parola" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblIsletmeKullanici" Relationship="Self.FK_tblIsletmeKullanici_tblKullanici" FromRole="tblKullanici" ToRole="tblIsletmeKullanici" />
+          <NavigationProperty Name="tblKuponlarim" Relationship="Self.FK_tblKuponlarim_tblKullanici" FromRole="tblKullanici" ToRole="tblKuponlarim" />
+          <NavigationProperty Name="tblPuanDetay" Relationship="Self.FK_tblPuanDetay_tblKullanici" FromRole="tblKullanici" ToRole="tblPuanDetay" />
+        </EntityType>
+        <EntityType Name="tblKuponlar">
+          <Key>
+            <PropertyRef Name="kuponKod" />
+          </Key>
+          <Property Name="kuponKod" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isletmeId" Type="Int64" Nullable="false" />
+          <Property Name="indirim" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="kuponAdet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblIsletme" Relationship="Self.FK_tblKuponlar_tblIsletme" FromRole="tblKuponlar" ToRole="tblIsletme" />
+        </EntityType>
+        <EntityType Name="tblKuponlarim">
+          <Key>
+            <PropertyRef Name="kuponKod" />
+            <PropertyRef Name="kullaniciId" />
+          </Key>
+          <Property Name="kuponKod" Type="Int64" Nullable="false" />
+          <Property Name="kullaniciId" Type="Int64" Nullable="false" />
+          <Property Name="isletmeId" Type="Int64" Nullable="false" />
+          <Property Name="indirim" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="tblIsletme" Relationship="Self.FK_tblKuponlarim_tblIsletme" FromRole="tblKuponlarim" ToRole="tblIsletme" />
+          <NavigationProperty Name="tblKullanici" Relationship="Self.FK_tblKuponlarim_tblKullanici" FromRole="tblKuponlarim" ToRole="tblKullanici" />
+        </EntityType>
+        <EntityType Name="tblPuanDetay">
+          <Key>
+            <PropertyRef Name="puanId" />
+          </Key>
+          <Property Name="puanId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isletmeId" Type="Int64" Nullable="false" />
+          <Property Name="kullaniciId" Type="Int64" Nullable="false" />
+          <Property Name="puan" Type="Int16" Nullable="false" />
+          <Property Name="yorum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tarih" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblIsletme" Relationship="Self.FK_tblPuanDetay_tblIsletme" FromRole="tblPuanDetay" ToRole="tblIsletme" />
+          <NavigationProperty Name="tblKullanici" Relationship="Self.FK_tblPuanDetay_tblKullanici" FromRole="tblPuanDetay" ToRole="tblKullanici" />
+        </EntityType>
+        <Association Name="FK_tblIsletmeKullanici_tblIsletme">
+          <End Role="tblIsletme" Type="Self.tblIsletme" Multiplicity="1" />
+          <End Role="tblIsletmeKullanici" Type="Self.tblIsletmeKullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblIsletme">
+              <PropertyRef Name="isletmeId" />
+            </Principal>
+            <Dependent Role="tblIsletmeKullanici">
+              <PropertyRef Name="isletmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKuponlar_tblIsletme">
+          <End Role="tblIsletme" Type="Self.tblIsletme" Multiplicity="1" />
+          <End Role="tblKuponlar" Type="Self.tblKuponlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblIsletme">
+              <PropertyRef Name="isletmeId" />
+            </Principal>
+            <Dependent Role="tblKuponlar">
+              <PropertyRef Name="isletmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKuponlarim_tblIsletme">
+          <End Role="tblIsletme" Type="Self.tblIsletme" Multiplicity="1" />
+          <End Role="tblKuponlarim" Type="Self.tblKuponlarim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblIsletme">
+              <PropertyRef Name="isletmeId" />
+            </Principal>
+            <Dependent Role="tblKuponlarim">
+              <PropertyRef Name="isletmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPuanDetay_tblIsletme">
+          <End Role="tblIsletme" Type="Self.tblIsletme" Multiplicity="1" />
+          <End Role="tblPuanDetay" Type="Self.tblPuanDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblIsletme">
+              <PropertyRef Name="isletmeId" />
+            </Principal>
+            <Dependent Role="tblPuanDetay">
+              <PropertyRef Name="isletmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIsletmeKullanici_tblKullanici">
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="1" />
+          <End Role="tblIsletmeKullanici" Type="Self.tblIsletmeKullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKullanici">
+              <PropertyRef Name="kullaniciId" />
+            </Principal>
+            <Dependent Role="tblIsletmeKullanici">
+              <PropertyRef Name="kullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKuponlarim_tblKullanici">
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="1" />
+          <End Role="tblKuponlarim" Type="Self.tblKuponlarim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKullanici">
+              <PropertyRef Name="kullaniciId" />
+            </Principal>
+            <Dependent Role="tblKuponlarim">
+              <PropertyRef Name="kullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPuanDetay_tblKullanici">
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="1" />
+          <End Role="tblPuanDetay" Type="Self.tblPuanDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKullanici">
+              <PropertyRef Name="kullaniciId" />
+            </Principal>
+            <Dependent Role="tblPuanDetay">
+              <PropertyRef Name="kullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="hackhathonP01Entities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tblIsletme" EntityType="Self.tblIsletme" />
+          <EntitySet Name="tblIsletmeKullanici" EntityType="Self.tblIsletmeKullanici" />
+          <EntitySet Name="tblKullanici" EntityType="Self.tblKullanici" />
+          <EntitySet Name="tblKuponlar" EntityType="Self.tblKuponlar" />
+          <EntitySet Name="tblKuponlarim" EntityType="Self.tblKuponlarim" />
+          <EntitySet Name="tblPuanDetay" EntityType="Self.tblPuanDetay" />
+          <AssociationSet Name="FK_tblIsletmeKullanici_tblIsletme" Association="Self.FK_tblIsletmeKullanici_tblIsletme">
+            <End Role="tblIsletme" EntitySet="tblIsletme" />
+            <End Role="tblIsletmeKullanici" EntitySet="tblIsletmeKullanici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKuponlar_tblIsletme" Association="Self.FK_tblKuponlar_tblIsletme">
+            <End Role="tblIsletme" EntitySet="tblIsletme" />
+            <End Role="tblKuponlar" EntitySet="tblKuponlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKuponlarim_tblIsletme" Association="Self.FK_tblKuponlarim_tblIsletme">
+            <End Role="tblIsletme" EntitySet="tblIsletme" />
+            <End Role="tblKuponlarim" EntitySet="tblKuponlarim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPuanDetay_tblIsletme" Association="Self.FK_tblPuanDetay_tblIsletme">
+            <End Role="tblIsletme" EntitySet="tblIsletme" />
+            <End Role="tblPuanDetay" EntitySet="tblPuanDetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIsletmeKullanici_tblKullanici" Association="Self.FK_tblIsletmeKullanici_tblKullanici">
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+            <End Role="tblIsletmeKullanici" EntitySet="tblIsletmeKullanici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKuponlarim_tblKullanici" Association="Self.FK_tblKuponlarim_tblKullanici">
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+            <End Role="tblKuponlarim" EntitySet="tblKuponlarim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPuanDetay_tblKullanici" Association="Self.FK_tblPuanDetay_tblKullanici">
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+            <End Role="tblPuanDetay" EntitySet="tblPuanDetay" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hackhathonP01ModelStoreContainer" CdmEntityContainer="hackhathonP01Entities3">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="hackhathonP01Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblIsletme">
+            <EntityTypeMapping TypeName="hackhathonP01Model.tblIsletme">
+              <MappingFragment StoreEntitySet="tblIsletme">
+                <ScalarProperty Name="isletmeId" ColumnName="isletmeId" />
+                <ScalarProperty Name="isletmeAdi" ColumnName="isletmeAdi" />
+                <ScalarProperty Name="puan" ColumnName="puan" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblIsletmeKullanici">
+            <EntityTypeMapping TypeName="hackhathonP01Model.tblIsletmeKullanici">
+              <MappingFragment StoreEntitySet="tblIsletmeKullanici">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="kullaniciId" ColumnName="kullaniciId" />
+                <ScalarProperty Name="isletmeId" ColumnName="isletmeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKullanici">
+            <EntityTypeMapping TypeName="hackhathonP01Model.tblKullanici">
+              <MappingFragment StoreEntitySet="tblKullanici">
+                <ScalarProperty Name="kullaniciId" ColumnName="kullaniciId" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="parola" ColumnName="parola" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKuponlar">
+            <EntityTypeMapping TypeName="hackhathonP01Model.tblKuponlar">
+              <MappingFragment StoreEntitySet="tblKuponlar">
+                <ScalarProperty Name="kuponKod" ColumnName="kuponKod" />
+                <ScalarProperty Name="isletmeId" ColumnName="isletmeId" />
+                <ScalarProperty Name="indirim" ColumnName="indirim" />
+                <ScalarProperty Name="kuponAdet" ColumnName="kuponAdet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKuponlarim">
+            <EntityTypeMapping TypeName="hackhathonP01Model.tblKuponlarim">
+              <MappingFragment StoreEntitySet="tblKuponlarim">
+                <ScalarProperty Name="kuponKod" ColumnName="kuponKod" />
+                <ScalarProperty Name="kullaniciId" ColumnName="kullaniciId" />
+                <ScalarProperty Name="isletmeId" ColumnName="isletmeId" />
+                <ScalarProperty Name="indirim" ColumnName="indirim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPuanDetay">
+            <EntityTypeMapping TypeName="hackhathonP01Model.tblPuanDetay">
+              <MappingFragment StoreEntitySet="tblPuanDetay">
+                <ScalarProperty Name="puanId" ColumnName="puanId" />
+                <ScalarProperty Name="isletmeId" ColumnName="isletmeId" />
+                <ScalarProperty Name="kullaniciId" ColumnName="kullaniciId" />
+                <ScalarProperty Name="puan" ColumnName="puan" />
+                <ScalarProperty Name="yorum" ColumnName="yorum" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

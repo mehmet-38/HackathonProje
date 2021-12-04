@@ -1,0 +1,49 @@
+﻿@using HackathonProje.Models.Entity
+@model List<tblKuponlar>
+@{
+    ViewBag.Title = "Kampanyalar";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+
+
+
+
+
+@using (Html.BeginForm("KuponKaydet", "KodViewer", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Kampanyalar</h2>
+                <hr />
+            </div>
+        </div>
+        @foreach (var kupon in Model)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <button style="margin-bottom:10px; padding:20px 0 20px 0; width:100%; overflow:hidden; " name="kuponKod" value="@kupon.kuponKod"
+                            class="btn btn-info" data-toggle="modal" data-target="#qrModal">
+                        <span class="text-wrap">
+                            @kupon.tblIsletme.isletmeAdi için geçerli @kupon.indirim ₺ indirim kuponu.
+                        </span>
+                        <span style="float:right;" class="badge badge-pill badge-warning mr-2 p-2">@kupon.kuponAdet</span>
+                    </button>
+                </div>
+
+            </div>
+
+        }
+
+        @if (TempData["alindi"] == "True")
+        {
+            <div class="alert alert-success text-center" role="alert"><h4>Kod alındı</h4></div>
+
+        }
+
+
+
+    </div>
+}
+

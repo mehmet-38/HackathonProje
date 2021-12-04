@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Kod Okut";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<h2>Müşteri kodu Tarat</h2>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12 text-center">
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><h3>Müşteri</h3></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Adı:</th>
+                        <td class="float-left">@ViewBag.musteriAdi</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Kupon Kodu:</th>
+                        <td class="float-left">@ViewBag.kuponKod</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">İndirim Miktarı:</th>
+                        <td class="float-left">@ViewBag.indirimMiktari</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Müşteri Geliş Sayısı:</th>
+                        <td class="float-left">@ViewBag.gelisSayisi</td>
+                    </tr>
+
+
+
+                    <tr class=" @(ViewBag.gecerliKod =="Geçerli" ? "bg-success" : "bg-danger")">
+                        <th scope="row">Kupon Geçerliliği:</th>
+                        <td class="float-left "> @ViewBag.gecerliKod </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-12">
+            <button class="btn btn-primary btn-block p-2">İşlemi Tamamla</button>
+        </div>
+    </div>
+
+</div>

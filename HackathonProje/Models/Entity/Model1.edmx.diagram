@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e53c6533fb1046acab76af4e6835d5d6" Name="Diagram1">
+        <EntityTypeShape EntityType="hackhathonP01Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hackhathonP01Model.tblIsletme" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hackhathonP01Model.tblIsletmeKullanici" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hackhathonP01Model.tblKullanici" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hackhathonP01Model.tblKuponlar" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hackhathonP01Model.tblKuponlarim" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hackhathonP01Model.tblPuanDetay" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="hackhathonP01Model.FK_tblIsletmeKullanici_tblIsletme" ManuallyRouted="false" />
+        <AssociationConnector Association="hackhathonP01Model.FK_tblKuponlar_tblIsletme" ManuallyRouted="false" />
+        <AssociationConnector Association="hackhathonP01Model.FK_tblKuponlarim_tblIsletme" ManuallyRouted="false" />
+        <AssociationConnector Association="hackhathonP01Model.FK_tblPuanDetay_tblIsletme" ManuallyRouted="false" />
+        <AssociationConnector Association="hackhathonP01Model.FK_tblIsletmeKullanici_tblKullanici" ManuallyRouted="false" />
+        <AssociationConnector Association="hackhathonP01Model.FK_tblKuponlarim_tblKullanici" ManuallyRouted="false" />
+        <AssociationConnector Association="hackhathonP01Model.FK_tblPuanDetay_tblKullanici" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
